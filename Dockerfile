@@ -17,21 +17,26 @@ RUN cd /temp/prod && bun install --frozen-lockfile --production
 
 # copy node_modules from temp directory
 # then copy all (non-ignored) project files into the image
-FROM base AS prerelease
-COPY --from=install /temp/dev/node_modules node_modules
-COPY . .
-
-# [optional] tests & build
-ENV NODE_ENV=production
-RUN bun test
-RUN bun run build
+# FROM base AS prerelease
+# COPY --from=install /temp/dev/node_modules node_modules
+# COPY . .
+#
+# # [optional] tests & build
+# ENV NODE_ENV=production
+# RUN bun test
+# RUN bun run build
 
 # copy production dependencies and source code into final image
 FROM base AS release
 COPY --from=install /temp/prod/node_modules node_modules
-COPY --from=prerelease /usr/src/app/.build.ts ./index.ts
-COPY --from=prerelease /usr/src/app/package.json .
+COPY . .
+# COPY --from=prerelease /usr/src/app/.build.ts ./index.ts
+# COPY --from=prerelease /usr/src/app/package.json .
+# COPY --from=prerelease /usr/src/app/src/commands/ ./src/commands/
+# COPY --from=prerelease /usr/src/app/src/events/ ./src/events/
+# COPY --from=prerelease /usr/src/app/src/util/ ./src/util/
+# COPY --from=prerelease /usr/src/app/src/notion_types.ts ./src/notion_types.ts
 
 # run the app
 USER bun
-ENTRYPOINT [ "bun", "run", "index.ts" ]
+ENTRYPOINT [ "bun", "run", "src/main.ts" ]
