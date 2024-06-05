@@ -6,7 +6,7 @@
   "type": "module",
   "main": "build/main.js",
   "scripts": {
-    "build": "tsc",
+    "build": "bun build --target bun --outfile .build.ts",
     "build:changelog": "npx @discordx/changelog --src src",
     "dev": "nodemon --exec bun run src/main.ts --watch src --ext ts",
     "start": "node build/main.js",
