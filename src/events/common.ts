@@ -19,6 +19,7 @@ export class Example {
     [message]: ArgsOf<"messageCreate">,
     client: Client,
   ): Promise<void> {
+    console.log("Message Created", client.user?.username, message.content);
     const url_regex = /(https?:\/\/\S+)/g;
     const urls =
       message.content.match(url_regex)?.map((url) => new URL(url)) ?? [];
