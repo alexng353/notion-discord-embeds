@@ -19,6 +19,10 @@ export class Example {
     [message]: ArgsOf<"messageCreate">,
     client: Client,
   ): Promise<void> {
+    if (message.author.id === client.user?.id) {
+      return;
+    }
+
     console.log(
       "Message Created:",
       "Author:",
