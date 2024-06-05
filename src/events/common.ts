@@ -91,9 +91,13 @@ export class Example {
       embed.setAuthor({ name: author.name!, iconURL: author.avatar_url! });
     }
     if (pr_page) {
-      embed.setDescription(
-        pr_page.properties.Description.rich_text?.[0]?.plain_text || null,
-      );
+      const description =
+        pr_page.properties.Description.rich_text?.[0]?.plain_text?.replace(
+          /\\(.)/g,
+          "$1",
+        );
+
+      embed.setDescription(description || null);
       const pr_number = pr_page.properties["PR Number"].number;
       const pr_url = `https://github.com/${config.github_repo}/pull/${pr_number}`;
       fields.push({
