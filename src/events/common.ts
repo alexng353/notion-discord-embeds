@@ -105,7 +105,7 @@ export class Example {
 
       embed.setDescription(description || null);
       const pr_number = pr_page.properties["PR Number"].number;
-      const pr_url = `https://github.com/${process.env.github_repo}/pull/${pr_number}`;
+      const pr_url = `https://github.com/${process.env.GITHUB_REPO}/pull/${pr_number}`;
       fields.push({
         name: "PR",
         value: `[EduBeyond/EduBeyond#${pr_number}](${pr_url})`,
