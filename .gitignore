@@ -10,3 +10,5 @@ build
 node_modules
 
 config.json
+
+.build.ts
