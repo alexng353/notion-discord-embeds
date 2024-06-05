@@ -1,0 +1,84 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint",
+    "eslint-comments"
+  ],
+  "extends": [
+    "prettier",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:unicorn/recommended",
+    "plugin:prettier/recommended",
+    "plugin:deprecation/recommended"
+  ],
+  "rules": {
+    "eslint-comments/no-unlimited-disable": "error",
+    "eslint-comments/no-restricted-disable": [
+      "error"
+    ],
+    "max-len": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "lf"
+      }
+    ],
+    "@next/next/no-html-link-for-pages": "off",
+    "@next/next/no-img-element": "off",
+    "@typescript-eslint/ban-ts-comment": "error",
+    "@typescript-eslint/array-type": "error",
+    "@typescript-eslint/consistent-generic-constructors": "error",
+    "@typescript-eslint/consistent-type-definitions": [
+      "error",
+      "type"
+    ],
+    "@typescript-eslint/no-floating-promises": "error",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^(get|_)",
+        "varsIgnorePattern": "^(get|_)",
+        "caughtErrorsIgnorePattern": "^_"
+      }
+    ],
+    "@typescript-eslint/ban-types": [
+      "error",
+      {
+        "types": {}
+      }
+    ],
+    "unicorn/no-array-for-each": "warn",
+    "unicorn/no-null": "off",
+    "unicorn/prefer-node-protocol": "off",
+    "unicorn/filename-case": "off",
+    "unicorn/prevent-abbreviations": [
+      "error",
+      {
+        "allowList": {
+          "env": true,
+          "src": true,
+          "props": true
+        }
+      }
+    ],
+    "no-unused-vars": "off",
+    "deprecation/deprecation": "warn"
+  },
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "ignorePatterns": [
+    "node_modules/**",
+    "dist/**",
+    "tsup.config.ts",
+    "coverage/**",
+    "coverage-ts/**"
+  ]
+}

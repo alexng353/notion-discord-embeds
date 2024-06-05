@@ -8,22 +8,34 @@
   "scripts": {
     "build": "tsc",
     "build:changelog": "npx @discordx/changelog --src src",
-    "dev": "node --loader ts-node/esm/transpile-only src/main.ts",
+    "dev": "nodemon --exec bun run src/main.ts --watch src --ext ts",
     "start": "node build/main.js",
-    "watch": "nodemon --exec npm run dev --watch src --ext ts"
+    "lint": "eslint . --ext .ts"
   },
   "dependencies": {
     "@discordx/importer": "^1.3.0",
     "@discordx/pagination": "^3.5.1",
+    "@notionhq/client": "^2.2.15",
     "discord.js": "^14.15.3",
-    "discordx": "^11.9.2"
+    "discordx": "^11.9.2",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@types/node": "^20.14.1",
+    "@types/eslint": "8",
+    "@types/bun": "^1.1.3",
+    "eslint": "8",
     "nodemon": "^3.1.3",
     "prettier": "^3.3.0",
     "ts-node": "^10.9.2",
-    "typescript": "5.4.5"
+    "typescript": "5.4.5",
+    "@types/eslint-plugin-prettier": "^3.1.3",
+    "@typescript-eslint/eslint-plugin": "latest",
+    "@typescript-eslint/parser": "^7.10.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-deprecation": "^2.0.0",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-unicorn": "latest"
   },
   "engines": {
     "node": ">=16.0.0",
