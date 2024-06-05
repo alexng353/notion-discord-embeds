@@ -4,7 +4,6 @@ import { decompressUUID } from "../util/decompress-uuid";
 import { get_icon, z_pull_request, z_task } from "../notion_types";
 import { Client as NotionClient } from "@notionhq/client";
 import { EmbedBuilder } from "discord.js";
-import config from "../../config.json";
 
 const notionClient = new NotionClient({ auth: process.env.NOTION_TOKEN });
 
@@ -99,7 +98,7 @@ export class Example {
 
       embed.setDescription(description || null);
       const pr_number = pr_page.properties["PR Number"].number;
-      const pr_url = `https://github.com/${config.github_repo}/pull/${pr_number}`;
+      const pr_url = `https://github.com/${process.env.github_repo}/pull/${pr_number}`;
       fields.push({
         name: "PR",
         value: `[EduBeyond/EduBeyond#${pr_number}](${pr_url})`,
