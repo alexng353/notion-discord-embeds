@@ -4,6 +4,7 @@ import { decompressUUID } from "../util/decompress-uuid";
 import { get_icon, z_pull_request, z_task } from "../notion_types";
 import { Client as NotionClient } from "@notionhq/client";
 import { EmbedBuilder } from "discord.js";
+import crypto from "crypto";
 
 const notionClient = new NotionClient({ auth: process.env.NOTION_TOKEN });
 
@@ -19,6 +20,7 @@ export class Example {
     [message]: ArgsOf<"messageCreate">,
     client: Client,
   ): Promise<void> {
+    const request_id = crypto.randomUUID();
     if (message.author.id === client.user?.id) {
       return;
     }
@@ -50,7 +52,19 @@ export class Example {
     }
     const page_id = decompressUUID(squished);
 
-    const page = z_task.parse(await notionClient.pages.retrieve({ page_id }));
+    const page_ = await notionClient.pages
+      .retrieve({ page_id })
+      .catch((error) => {
+        console.error({ error, request_id });
+        return null;
+      });
+
+    if (!page_) {
+      await message.reply("Page not found; request ID: " + request_id);
+      return;
+    }
+
+    const page = z_task.parse(page_);
 
     const author_id = page.properties["Author"].people?.[0]?.id;
     const title = page.properties["Task name"].title[0].plain_text;
